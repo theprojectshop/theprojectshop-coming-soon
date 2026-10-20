@@ -9,4 +9,4 @@ Then open repository Settings > Pages:
 - Folder: /(root)
 - Save
 
-After the GitHub Pages site is published, add the custom domain theprojectstore.online under Settings > Pages, then configure Namecheap DNS using the steps in ChatGPT.
+After the GitHub Pages site is published, add the custom domain theprojectshop.online under Settings > Pages, then configure Namecheap DNS using the steps in ChatGPT.
