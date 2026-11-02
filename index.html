@@ -1,275 +1,819 @@
 <!doctype html>
 <html lang="en">
 <head>
-<!-- ═══ Meta & Charset ═══════════════════════════════════════ -->
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="The Project Shop — Engineering Projects, Prototypes & Components. Coming soon.">
-<meta name="theme-color" content="#fff8f0">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<meta name="description" content="The Project Shop — B.Tech Final Year Projects in IoT, Robotics &amp; Software. Electronic Components &amp; DIY Kits. Launching soon.">
+<meta name="theme-color" content="#faf9f7">
 <meta name="robots" content="index,follow">
-
-<!-- Open Graph / Social Cards -->
+<meta name="keywords" content="btech final year project, iot project, robotics project, electronic components, diy kits, engineering project india">
 <meta property="og:type" content="website">
-<meta property="og:title" content="The Project Shop | Coming Soon">
-<meta property="og:description" content="Engineering Projects, Prototypes &amp; Components — launching soon.">
+<meta property="og:title" content="The Project Shop — Launching Soon">
+<meta property="og:description" content="B.Tech Final Year Projects · IoT · Robotics · Software · Electronic Kits — launching soon.">
 <meta property="og:image" content="https://theprojectshop.online/logo.png">
 <meta property="og:url" content="https://theprojectshop.online/">
 <meta name="twitter:card" content="summary_large_image">
-
 <title>The Project Shop | Coming Soon</title>
-
-<!-- ═══ Critical Resource Hints ═════════════════════════════ -->
-<!-- Preload the logo (largest contentful paint element) -->
 <link rel="preload" as="image" href="logo.png" fetchpriority="high">
 
-<!-- ═══ Styles (inlined — zero extra request) ════════════════ -->
 <style>
-/* ── Reset & tokens ── */
-*,::before,::after{box-sizing:border-box;margin:0;padding:0}
-
+/* ══ TOKENS ═══════════════════════════════════════ */
 :root{
-  --ink:    #111820;
-  --orange: #ff7900;
-  --muted:  #536170;
-  --bg-top: #fff8f0;
-  --bg-bot: #ffffff;
-  color-scheme: light;
+  --o:    #ff7900;
+  --o2:   #ffa040;
+  --o-a:  rgba(255,121,0,.13);
+  --dark: #0f1923;
+  --ink:  #1e2d3d;
+  --mid:  #60778a;
+  --bg:   #faf9f7;
+  --r:    22px;
+  --ease: cubic-bezier(.22,1,.36,1);
 }
 
-/* ── Base ── */
+/* ══ RESET ════════════════════════════════════════ */
+*,::before,::after{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
-
 body{
   min-height:100svh;
-  display:grid;
-  place-items:center;
-  padding:clamp(20px,5vw,48px) clamp(16px,5vw,40px);
-  font-family:system-ui,Arial,Helvetica,sans-serif;
+  font-family:system-ui,-apple-system,'Segoe UI',Arial,sans-serif;
   color:var(--ink);
-  background:radial-gradient(ellipse 120% 60% at 50% 0%,var(--bg-top) 0%,var(--bg-bot) 65%);
-  position:relative;
-  overflow:hidden;
+  /* Single background declaration */
+  background:radial-gradient(ellipse 110% 60% at 50% 0%,#fff4e6 0%,var(--bg) 55%) var(--bg);
+  overflow-x:hidden;
 }
 
-/* ── Subtle grain (no image file, pure SVG data URI) ── */
-body::before{
-  content:'';
-  position:fixed;inset:0;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-  background-repeat:repeat;
-  pointer-events:none;
-  z-index:0;
-  opacity:.5;
-  will-change:transform;
+/* ══ CANVASES (fixed, pointer-events:none) ════════ */
+#cv-bg,#cv-conf{
+  position:fixed;inset:0;pointer-events:none;z-index:0;
 }
+#cv-conf{z-index:200;display:none}
 
-/* ── Main card ── */
-main{
+/* ══ CUSTOM CURSOR ════════════════════════════════
+   Only rendered on fine-pointer devices via CSS.
+   Both elements use GPU-only properties (left/top
+   via JS direct style = no layout trigger).        */
+#c-dot,#c-ring{
+  position:fixed;border-radius:50%;
+  pointer-events:none;z-index:9999;
+  left:-80px;top:-80px;
+  transform:translate(-50%,-50%);
+  /* will-change keeps them on a separate layer */
+  will-change:left,top;
+}
+#c-dot{width:8px;height:8px;background:var(--o)}
+#c-ring{
+  width:40px;height:40px;
+  border:2px solid rgba(255,121,0,.38);
+  /* Only GPU-safe properties in transition */
+  transition:width .17s var(--ease),height .17s var(--ease),
+             opacity .17s,border-color .17s;
+}
+#c-ring.hov{width:56px;height:56px;border-color:var(--o);opacity:.9}
+@media(hover:none),(pointer:coarse){#c-dot,#c-ring{display:none}}
+
+/* ══ PAGE WRAPPER ═════════════════════════════════ */
+.wrap{
   position:relative;z-index:1;
-  width:min(860px,100%);
-  text-align:center;
-  animation:rise .55s cubic-bezier(.22,1,.36,1) both;
+  min-height:100svh;
+  display:flex;align-items:center;justify-content:center;
+  padding:clamp(20px,5vw,56px) clamp(16px,5vw,40px);
 }
 
-@keyframes rise{
-  from{opacity:0;transform:translateY(20px)}
+/* ══ 3-D TILT SCENE ══════════════════════════════ */
+.scene{perspective:1100px;width:100%;max-width:860px}
+
+/* ══ GLASS CARD ══════════════════════════════════
+   FIX: backdrop-filter ONLY here, nowhere else.
+   FIX: blur reduced 24→12px (halves GPU cost).
+   FIX: contain:paint stops repaint spreading to page.
+   FIX: position:relative for ::before scan line.   */
+.card{
+  position:relative;
+  /* Dynamic will-change: set/cleared by JS on hover */
+  transition:transform .14s ease-out;
+  contain:paint;   /* isolates repaints to this element */
+
+  /* FIX: ONE blur layer, smaller radius */
+  background:rgba(255,255,255,.88);
+  backdrop-filter:blur(12px) saturate(1.5);
+  -webkit-backdrop-filter:blur(12px) saturate(1.5);
+  border:1px solid rgba(255,255,255,.95);
+  border-radius:var(--r);
+  box-shadow:
+    0 0 0 1px var(--o-a),
+    0 24px 64px rgba(0,0,0,.09),
+    0 4px 16px rgba(0,0,0,.05),
+    0 1px 0 rgba(255,255,255,.9) inset;
+
+  padding:clamp(28px,6vw,68px) clamp(22px,5.5vw,60px);
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+  overflow:hidden;  /* clips ::before scan */
+}
+@supports not (backdrop-filter:blur(1px)){
+  .card{background:rgba(255,255,255,.97)}
+}
+
+/* ── Scan line: uses transform (GPU) not background-pos ── */
+.card::before{
+  content:'';
+  position:absolute;top:0;left:0;
+  width:55%;height:2px;
+  background:linear-gradient(90deg,transparent,var(--o),var(--o2),transparent);
+  /* GPU-only animation */
+  transform:translateX(-120%);
+  animation:scan 3.8s cubic-bezier(.4,0,.2,1) infinite;
+  animation-delay:1.5s;
+  border-radius:0 0 2px 2px;
+}
+@keyframes scan{
+  from{transform:translateX(-120%)}
+  to  {transform:translateX(300%)}
+}
+
+/* ══ LOGO ════════════════════════════════════════ */
+.logo{
+  display:block;
+  width:min(480px,86%);height:auto;
+  aspect-ratio:1774/887;object-fit:contain;
+  margin-bottom:clamp(8px,2vw,16px);
+  animation:up .65s var(--ease) both;
+}
+
+/* ══ EYEBROW ═════════════════════════════════════ */
+.eyebrow{
+  font-size:clamp(10px,1.55vw,12px);font-weight:700;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--o);
+  margin-bottom:clamp(10px,2vw,18px);
+  animation:up .5s .1s var(--ease) both;
+}
+
+/* ══ HEADLINE ════════════════════════════════════ */
+h1{
+  font-size:clamp(32px,6.8vw,76px);
+  line-height:1.07;font-weight:800;
+  letter-spacing:clamp(-1px,-0.025em,-2.5px);
+  margin-bottom:clamp(6px,1.2vw,12px);
+  animation:up .5s .15s var(--ease) both;
+}
+#typed{color:var(--o)}
+.tcur{
+  display:inline-block;width:3px;height:.82em;
+  background:var(--o);border-radius:2px;
+  margin-left:3px;vertical-align:text-bottom;
+  animation:blink .88s step-end infinite;
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+.sub{
+  font-size:clamp(16px,3vw,30px);font-weight:700;
+  color:var(--mid);letter-spacing:-.2px;
+  margin-bottom:clamp(14px,2.5vw,26px);
+  animation:up .5s .19s var(--ease) both;
+}
+
+/* ══ BODY COPY ═══════════════════════════════════ */
+.copy{
+  font-size:clamp(14px,1.85vw,17px);line-height:1.8;
+  color:var(--mid);max-width:560px;
+  margin-bottom:clamp(20px,3.5vw,30px);
+  animation:up .5s .23s var(--ease) both;
+}
+
+/* ══ SERVICE BADGES ══════════════════════════════
+   FIX: removed backdrop-filter (was 6 blur layers).
+   FIX: hover only uses transform (GPU).
+   FIX: shadow/glow uses ::after opacity (GPU).     */
+.badges{
+  display:flex;flex-wrap:wrap;gap:10px;justify-content:center;
+  margin-bottom:clamp(20px,3.5vw,28px);
+}
+.badge{
+  position:relative;              /* for ::after pseudo */
+  display:inline-flex;align-items:center;gap:7px;
+  /* Solid bg, no blur — huge GPU saving */
+  background:rgba(255,255,255,.9);
+  border:1.5px solid var(--o-a);
+  border-radius:12px;padding:9px 16px;
+  font-size:clamp(11.5px,1.45vw,13.5px);font-weight:700;color:var(--dark);
+  cursor:default;
+  /* FIX: only transform in transition (GPU-composited) */
+  transition:transform .16s var(--ease);
+  /* Stagger entrance — set per :nth-child below */
+  opacity:0;animation:up .4s var(--ease) both;
+}
+/* Hover glow lives in ::after at opacity:0 → 1 (GPU opacity, no repaint) */
+.badge::after{
+  content:'';
+  position:absolute;inset:-1.5px;
+  border-radius:12px;
+  border:1.5px solid var(--o);
+  box-shadow:0 8px 28px rgba(255,121,0,.22);
+  opacity:0;
+  transition:opacity .16s ease;
+  pointer-events:none;
+}
+.badge:hover{transform:translateY(-4px) scale(1.04)}
+.badge:hover::after{opacity:1}
+.bi{font-size:1.1em;line-height:1}
+/* Stagger: each badge 50ms apart */
+.badge:nth-child(1){animation-delay:.28s}
+.badge:nth-child(2){animation-delay:.33s}
+.badge:nth-child(3){animation-delay:.38s}
+.badge:nth-child(4){animation-delay:.43s}
+.badge:nth-child(5){animation-delay:.48s}
+.badge:nth-child(6){animation-delay:.53s}
+
+/* Mobile: horizontal swipe carousel */
+@media(max-width:520px){
+  .badges{
+    flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;
+    -webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory;
+    padding-bottom:8px;scrollbar-width:none;
+  }
+  .badges::-webkit-scrollbar{display:none}
+  .badge{flex-shrink:0;scroll-snap-align:start}
+}
+
+/* ══ STAT CARDS ══════════════════════════════════
+   FIX: removed backdrop-filter (was 3 blur layers).
+   FIX: hover uses only transform (GPU).
+   FIX: glow via ::after opacity.                  */
+.stats{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:12px;
+  width:100%;max-width:460px;
+  margin-bottom:clamp(18px,3vw,26px);
+  animation:up .5s .57s var(--ease) both;
+}
+.stat{
+  position:relative;
+  background:rgba(255,255,255,.9);
+  border:1.5px solid var(--o-a);
+  border-radius:16px;padding:14px 8px;
+  transition:transform .16s var(--ease);
+}
+.stat::after{
+  content:'';
+  position:absolute;inset:-1.5px;
+  border-radius:16px;
+  box-shadow:0 8px 28px rgba(255,121,0,.2);
+  border:1.5px solid var(--o);
+  opacity:0;
+  transition:opacity .16s ease;
+  pointer-events:none;
+}
+.stat:hover{transform:translateY(-4px)}
+.stat:hover::after{opacity:1}
+.sn{
+  display:block;
+  font-size:clamp(22px,4.5vw,34px);font-weight:800;
+  color:var(--o);line-height:1.1;margin-bottom:3px;
+  font-variant-numeric:tabular-nums; /* prevents layout shift during count */
+}
+.sl{
+  font-size:clamp(9px,1.1vw,11px);font-weight:700;
+  text-transform:uppercase;letter-spacing:.1em;color:var(--mid);
+}
+
+/* ══ STATUS PILL ══════════════════════════════════
+   FIX: removed backdrop-filter.                   */
+.pill{
+  display:inline-flex;align-items:center;gap:9px;
+  border:1.5px solid #ffdfc2;
+  background:rgba(255,247,239,.96);
+  border-radius:999px;padding:9px 20px;
+  color:#9a3e00;font-weight:700;font-size:11px;
+  letter-spacing:.14em;text-transform:uppercase;
+  box-shadow:0 2px 14px rgba(255,121,0,.1);
+  margin-bottom:clamp(16px,3vw,24px);
+  animation:up .5s .62s var(--ease) both;
+}
+.dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--o);flex-shrink:0;
+  animation:ripple 2.1s ease-in-out infinite;
+}
+@keyframes ripple{
+  0%  {box-shadow:0 0 0 0   rgba(255,121,0,.65)}
+  65% {box-shadow:0 0 0 9px rgba(255,121,0,0)}
+  100%{box-shadow:0 0 0 0   rgba(255,121,0,0)}
+}
+
+/* ══ NOTIFY FORM ═════════════════════════════════ */
+.nform{
+  display:flex;width:min(450px,100%);
+  border-radius:14px;overflow:hidden;
+  background:#fff;
+  box-shadow:0 4px 28px rgba(255,121,0,.18), 0 0 0 1.5px var(--o-a);
+  margin-bottom:clamp(22px,4vw,36px);
+  animation:up .5s .66s var(--ease) both;
+}
+.nform input{
+  flex:1;min-width:0;padding:14px 16px;
+  border:none;outline:none;
+  font-size:14px;font-family:inherit;color:var(--ink);background:transparent;
+  /* FIX: box-shadow transition is GPU (inset box-shadow is composited) */
+  transition:box-shadow .14s;
+}
+.nform input::placeholder{color:#adb8c4}
+.nform input:focus{box-shadow:inset 0 0 0 2px rgba(255,121,0,.2)}
+.nform input.err{box-shadow:inset 0 0 0 2px #f87171}
+.nform button{
+  flex-shrink:0;padding:14px 20px;
+  background:var(--o);color:#fff;border:none;
+  font-weight:700;font-size:14px;font-family:inherit;
+  cursor:pointer;white-space:nowrap;
+  /* FIX: only background + transform in transition */
+  transition:background .13s,transform .1s;
+}
+.nform button:hover{background:var(--o2)}
+.nform button:active{transform:scale(.97)}
+
+/* Social proof line under form */
+.social-proof{
+  font-size:12px;color:var(--mid);
+  margin-top:-14px; /* tuck up under form */
+  margin-bottom:clamp(6px,1.5vw,10px);
+  animation:up .5s .7s var(--ease) both;
+  opacity:0; /* driven by animation */
+}
+
+/* Success message */
+.nok{
+  display:none;
+  width:min(450px,100%);padding:14px 22px;
+  background:#fff;border-radius:14px;
+  border:1.5px solid #b3f0dc;color:#0a6b4a;
+  font-weight:700;font-size:14px;line-height:1.55;
+  text-align:center;
+  box-shadow:0 4px 20px rgba(0,180,120,.1);
+  margin-bottom:clamp(22px,4vw,36px);
+  animation:up .38s var(--ease) both;
+}
+
+/* ══ FOOTER ══════════════════════════════════════ */
+footer{
+  color:#94a3b8;font-size:11px;font-weight:700;
+  letter-spacing:.28em;text-transform:uppercase;
+  animation:up .5s .78s var(--ease) both;
+}
+.rule{
+  display:inline-block;width:22px;height:1px;
+  background:linear-gradient(90deg,transparent,#bcc5d0,transparent);
+  vertical-align:middle;margin:0 10px;
+}
+
+/* ══ ENTRANCE ════════════════════════════════════ */
+@keyframes up{
+  from{opacity:0;transform:translateY(22px)}
   to  {opacity:1;transform:translateY(0)}
 }
 
-/* ── Logo ── */
-.logo{
-  display:block;
-  width:min(600px,92%);
-  height:auto;
-  aspect-ratio:1774/887;
-  max-height:300px;
-  object-fit:contain;
-  margin:0 auto clamp(18px,3.5vw,32px);
-  animation:fade-logo .4s .1s ease both;
+/* ══ RESPONSIVE ══════════════════════════════════ */
+@media(max-width:680px){.nform button{padding:14px 14px;font-size:13px}}
+@media(max-width:420px){h1{letter-spacing:-1px}.stats{gap:8px}}
+@media(max-width:360px){.card{padding:22px 14px}h1{font-size:28px}.sub{font-size:15px}}
+@media(max-height:520px) and (orientation:landscape){
+  .card{padding:14px 22px}
+  .logo{width:min(200px,36vw);margin-bottom:6px}
+  h1{font-size:clamp(20px,3.5vw,32px);margin-bottom:2px}
+  .sub{font-size:13px;margin-bottom:8px}
+  .copy,.stats{display:none}
+  .badges{margin-bottom:10px}.pill{margin-bottom:10px}.nform{margin-bottom:12px}
 }
+@media(min-width:1600px){.logo{width:540px}.card{padding:76px 82px}}
 
-@keyframes fade-logo{
-  from{opacity:0;filter:blur(4px)}
-  to  {opacity:1;filter:blur(0)}
-}
-
-/* ── Tagline ── */
-.tagline{
-  font-size:clamp(12px,2.2vw,19px);
-  letter-spacing:.14em;
-  color:#2c3a46;
-  margin:0 auto clamp(30px,4.5vw,50px);
-  line-height:1.6;
-  text-transform:uppercase;
-  font-weight:600;
-}
-
-/* ── Status pill ── */
-.status{
-  display:inline-flex;align-items:center;gap:9px;
-  border:1px solid #ffdfc2;
-  background:#fff7ef;
-  border-radius:999px;
-  padding:9px 18px;
-  color:#a74d00;
-  font-weight:700;
-  font-size:11px;
-  letter-spacing:.13em;
-  text-transform:uppercase;
-  box-shadow:0 1px 6px 0 #ff790012;
-  transition:box-shadow .2s;
-}
-.status:hover{box-shadow:0 4px 18px 0 #ff790022}
-
-/* Pulsing dot — GPU only (opacity + transform) */
-.dot{
-  flex-shrink:0;
-  width:8px;height:8px;border-radius:50%;
-  background:var(--orange);
-  box-shadow:0 0 0 0 #ff790055;
-  animation:pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse{
-  0%  {box-shadow:0 0 0 0   #ff790066;opacity:1}
-  60% {box-shadow:0 0 0 8px #ff790000;opacity:.85}
-  100%{box-shadow:0 0 0 0   #ff790000;opacity:1}
-}
-
-/* ── Heading ── */
-h1{
-  font-size:clamp(36px,7.5vw,70px);
-  letter-spacing:clamp(-3px,-0.03em,-1px);
-  line-height:1.06;
-  margin:clamp(16px,2.5vw,26px) 0 clamp(12px,2vw,20px);
-  font-weight:800;
-}
-
-/* ── Body copy ── */
-p.copy{
-  font-size:clamp(15px,2.2vw,19px);
-  line-height:1.75;
-  color:var(--muted);
-  max-width:600px;
-  margin:0 auto;
-}
-
-/* ── Accent shimmer ── */
-.accent{
-  font-weight:800;
-  background:linear-gradient(90deg,#ff7900 40%,#ffb347 60%,#ff7900 80%);
-  background-size:200%;
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  background-clip:text;
-  animation:shimmer 3s linear infinite;
-}
-
-@keyframes shimmer{
-  from{background-position:100%}
-  to  {background-position:-100%}
-}
-
-/* ── Decorative rule ── */
-.rule{
-  display:inline-block;
-  width:28px;height:1px;
-  background:linear-gradient(90deg,transparent,#9aa7b5,transparent);
-  vertical-align:middle;margin:0 12px;
-}
-
-/* ── Footer ── */
-.footer{
-  margin-top:clamp(32px,5vw,50px);
-  color:#7a8fa0;
-  font-size:11px;font-weight:700;letter-spacing:.3em;
-  text-transform:uppercase;
-}
-
-/* ══════════════════════════════════════
-   RESPONSIVE BREAKPOINTS
-══════════════════════════════════════ */
-
-@media(max-width:768px){
-  .tagline{letter-spacing:.08em}
-}
-
-@media(max-width:480px){
-  .logo{margin-bottom:18px}
-  .tagline{letter-spacing:.05em;margin-bottom:28px}
-  h1{letter-spacing:-1px}
-}
-
-/* Tiny screens — small Androids, older iPhones */
-@media(max-width:360px){
-  h1{font-size:32px}
-  .tagline{font-size:11px}
-}
-
-/* Landscape phones with short viewport */
-@media(max-height:500px) and (orientation:landscape){
-  body{padding:12px 24px}
-  .logo{max-height:120px;margin-bottom:10px}
-  .tagline{margin-bottom:16px;font-size:11px}
-  h1{font-size:clamp(26px,5vw,40px);margin:10px 0 8px}
-  p.copy{font-size:14px}
-  .footer{margin-top:16px}
-}
-
-/* Wide / 4K displays */
-@media(min-width:1600px){
-  main{max-width:1100px}
-  .logo{max-height:400px}
-}
-
-/* Respect prefers-reduced-motion */
+/* ══ ACCESSIBILITY ═══════════════════════════════ */
 @media(prefers-reduced-motion:reduce){
   *,::before,::after{
-    animation-duration:.01ms!important;
-    animation-iteration-count:1!important;
-    transition-duration:.01ms!important;
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
   }
 }
-
-/* Windows High Contrast / forced-colors */
 @media(forced-colors:active){
-  .accent{-webkit-text-fill-color:revert;background:none;color:Highlight}
-  .status{border:1px solid ButtonText}
+  .card{border:1px solid ButtonText;background:Canvas}
+  .badge,.stat,.pill,.nform{border:1px solid ButtonText}
+  .badge::after,.stat::after{display:none}
+  #typed{forced-color-adjust:none;color:Highlight}
+  .card::before{display:none}
 }
 </style>
 </head>
 
 <body>
-<main>
+<div id="c-dot" aria-hidden="true"></div>
+<div id="c-ring" aria-hidden="true"></div>
+<canvas id="cv-bg"   aria-hidden="true"></canvas>
+<canvas id="cv-conf" aria-hidden="true"></canvas>
 
-  <!-- width/height = CLS prevention. fetchpriority=high = LCP boost. -->
+<div class="wrap">
+<div class="scene" id="scene">
+<div class="card" id="card">
+
   <img
     class="logo"
     src="logo.png"
-    alt="The Project Shop — Engineering Projects, Prototypes &amp; Components"
-    width="1774"
-    height="887"
+    alt="The Project Shop — Engineering Projects, Prototypes and Components"
+    width="1774" height="887"
     fetchpriority="high"
     decoding="async"
   >
 
-  <p class="tagline">Engineering Projects&nbsp;&middot;&nbsp;Prototypes&nbsp;&middot;&nbsp;Components</p>
+  <p class="eyebrow">🎓 Trusted by B.Tech Students Across India</p>
 
-  <span class="status" role="status" aria-live="polite">
+  <h1>We Build <span id="typed"></span><span class="tcur" aria-hidden="true"></span></h1>
+  <p class="sub">So you graduate in style.</p>
+
+  <p class="copy">
+    From IoT systems and robotics to full-stack software — we turn your final-year project idea
+    into a working prototype. Plus a store packed with electronic components and hands-on DIY kits
+    built for engineering students.
+  </p>
+
+  <div class="badges" role="list" aria-label="Our services">
+    <div class="badge" role="listitem"><span class="bi" aria-hidden="true">🤖</span>Robotics</div>
+    <div class="badge" role="listitem"><span class="bi" aria-hidden="true">📡</span>IoT Systems</div>
+    <div class="badge" role="listitem"><span class="bi" aria-hidden="true">💻</span>Software</div>
+    <div class="badge" role="listitem"><span class="bi" aria-hidden="true">⚡</span>Components</div>
+    <div class="badge" role="listitem"><span class="bi" aria-hidden="true">🔬</span>DIY Kits</div>
+    <div class="badge" role="listitem"><span class="bi" aria-hidden="true">🛠️</span>Prototypes</div>
+  </div>
+
+  <div class="stats" role="list" aria-label="Our numbers">
+    <div class="stat" role="listitem">
+      <span class="sn" id="s1">0</span>
+      <span class="sl">Projects</span>
+    </div>
+    <div class="stat" role="listitem">
+      <span class="sn" id="s2">0</span>
+      <span class="sl">DIY Kits</span>
+    </div>
+    <div class="stat" role="listitem">
+      <span class="sn" id="s3">0</span>
+      <span class="sl">Components</span>
+    </div>
+  </div>
+
+  <span class="pill" role="status" aria-live="polite">
     <span class="dot" aria-hidden="true"></span>
-    Website in Progress
+    Store Launching Soon
   </span>
 
-  <h1>Under <span class="accent">Development</span></h1>
+  <!--
+    EMAIL BACKEND — Google Forms (free, unlimited)
+    Responses land in the linked Google Sheet automatically. No setup needed.
+  -->
+  <form
+    class="nform" id="nform"
+    novalidate
+    aria-label="Get early access"
+  >
+    <input
+      type="email" id="nemail" name="email"
+      placeholder="your@email.com"
+      aria-label="Email address"
+      autocomplete="email"
+      required
+    >
+    <button type="submit">Get Early Access →</button>
+  </form>
+  <p class="social-proof" aria-live="polite">
+    🔒 No spam. Just one email when we go live.
+  </p>
+  <div class="nok" id="nok" role="status" aria-live="assertive" aria-atomic="true">
+    🎉 You're on the list! We'll ping you the moment we go live.
+  </div>
 
-  <p class="copy">We're building something exciting. Our online store is currently being prepared and will be live very soon.</p>
-
-  <div class="footer" aria-label="Website address">
+  <footer>
     <span class="rule" aria-hidden="true"></span>
     THEPROJECTSHOP.ONLINE
     <span class="rule" aria-hidden="true"></span>
-  </div>
+  </footer>
 
-</main>
+</div>
+</div>
+</div>
+
+<script>
+(function(){
+'use strict';
+var REDUCED   = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+var HAS_HOVER = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+
+
+/* ══ 1. CIRCUIT CANVAS ══════════════════════════════
+   FIX: ctx.setTransform (no DPR accumulation on resize)
+   FIX: pulse radial gradient pre-built once, reused via pattern
+   FIX: visibility API stops loop when tab hidden
+   FIX: DPR capped at 2 (retina without 3× overhead)
+   FIX: trace count scales with viewport area / density   */
+!function(){
+  var cv  = document.getElementById('cv-bg');
+  var ctx = cv.getContext('2d');
+  var DPR = Math.min(window.devicePixelRatio||1, 2);
+  var W=0, H=0;
+  var traces=[], frame=0, rafId=null, hidden=false;
+
+  /* Pre-built off-screen glow stamp — created ONCE, reused every frame.
+     Avoids per-frame createRadialGradient allocation.               */
+  var stamp = null, stampSize = 22;
+  function buildStamp(){
+    var oc  = document.createElement('canvas');
+    oc.width = oc.height = stampSize * 2;
+    var ox  = oc.getContext('2d');
+    var g   = ox.createRadialGradient(stampSize,stampSize,0,stampSize,stampSize,stampSize);
+    g.addColorStop(0,   'rgba(255,210,110,0.92)');
+    g.addColorStop(0.4, 'rgba(255,121,0,0.32)');
+    g.addColorStop(1,   'rgba(255,121,0,0)');
+    ox.beginPath();
+    ox.arc(stampSize,stampSize,stampSize,0,6.2832);
+    ox.fillStyle = g;
+    ox.fill();
+    stamp = oc;
+  }
+  buildStamp();
+
+  function resize(){
+    W = cv.offsetWidth;  H = cv.offsetHeight;
+    cv.width  = W * DPR; cv.height = H * DPR;
+    /* setTransform resets to identity then scales — no accumulation */
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+  }
+
+  function build(){
+    traces=[];
+    var G    = W<640 ? 50 : 68;
+    var area = W*H;
+    /* Fewer traces on mobile/small screens */
+    var N = W<640 ? 14 : Math.min(26, (area/30000)|0);
+    var cols = (W/G)|0, rows = (H/G)|0;
+    if(cols<2||rows<2) return;
+    for(var i=0;i<N;i++){
+      var col  = (Math.random()*(cols-1))|0;
+      var row  = (Math.random()*(rows-1))|0;
+      var horz = Math.random()>0.45;
+      var len  = ((Math.random()*5)|0)+1;
+      traces.push({
+        x1:col*G, y1:row*G,
+        x2:horz?Math.min(cols-1,col+len)*G:col*G,
+        y2:horz?row*G:Math.min(rows-1,row+len)*G,
+        drawn:0, alpha:0,
+        sf:   (Math.random()*200)|0,
+        spd:  0.007+Math.random()*0.012,
+        pulse:null,
+        pspd: 0.01+Math.random()*0.014
+      });
+    }
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    frame++;
+    for(var i=0,t;i<traces.length;i++){
+      t=traces[i];
+      if(frame<t.sf) continue;
+      if(t.alpha<0.26) t.alpha=Math.min(0.26,t.alpha+0.007);
+      if(t.drawn<1)    t.drawn=Math.min(1,t.drawn+t.spd);
+      var ex=t.x1+(t.x2-t.x1)*t.drawn;
+      var ey=t.y1+(t.y2-t.y1)*t.drawn;
+      /* Trace */
+      ctx.strokeStyle='rgba(255,121,0,'+t.alpha+')';
+      ctx.lineWidth=1.5; ctx.lineCap='round';
+      ctx.beginPath(); ctx.moveTo(t.x1,t.y1); ctx.lineTo(ex,ey); ctx.stroke();
+      /* Origin pad */
+      ctx.fillStyle='rgba(255,148,50,'+(t.alpha*2.4)+')';
+      ctx.beginPath(); ctx.arc(t.x1,t.y1,2.8,0,6.2832); ctx.fill();
+      if(t.drawn>=1){
+        /* End pad */
+        ctx.beginPath(); ctx.arc(t.x2,t.y2,2.8,0,6.2832); ctx.fill();
+        /* Pulse: draw pre-built stamp — zero allocation */
+        if(t.pulse===null&&Math.random()<0.004) t.pulse=0;
+        if(t.pulse!==null){
+          t.pulse+=t.pspd;
+          if(t.pulse>1.2){ t.pulse=null; }
+          else if(t.pulse<=1){
+            var px=t.x1+(t.x2-t.x1)*t.pulse;
+            var py=t.y1+(t.y2-t.y1)*t.pulse;
+            /* drawImage is much cheaper than createRadialGradient per frame */
+            ctx.drawImage(stamp, px-stampSize, py-stampSize, stampSize*2, stampSize*2);
+          }
+        }
+      }
+    }
+    if(!hidden) rafId=requestAnimationFrame(draw);
+  }
+
+  /* Pause when tab hidden — saves battery */
+  document.addEventListener('visibilitychange',function(){
+    hidden=document.hidden;
+    if(!hidden&&!REDUCED){ rafId=requestAnimationFrame(draw); }
+    else if(rafId){ cancelAnimationFrame(rafId); rafId=null; }
+  });
+
+  /* Debounced resize */
+  var rTid;
+  window.addEventListener('resize',function(){
+    clearTimeout(rTid);
+    rTid=setTimeout(function(){resize();build();frame=0;if(!REDUCED&&!hidden){if(rafId)cancelAnimationFrame(rafId);rafId=requestAnimationFrame(draw);}},200);
+  });
+
+  resize(); build();
+  if(!REDUCED) rafId=requestAnimationFrame(draw);
+}();
+
+
+/* ══ 2. CUSTOM CURSOR ════════════════════════════
+   FIX: dot uses direct style.left/top (bypasses layout)
+   FIX: ring lerp runs in its own RAF, separated from
+        the canvas loop for clean scheduling.            */
+if(HAS_HOVER&&!REDUCED) !function(){
+  var dot =document.getElementById('c-dot');
+  var ring=document.getElementById('c-ring');
+  var mx=-80,my=-80,rx=-80,ry=-80;
+
+  document.addEventListener('mousemove',function(e){
+    mx=e.clientX; my=e.clientY;
+    dot.style.left=mx+'px'; dot.style.top=my+'px';
+  });
+
+  !function ringLoop(){
+    rx+=(mx-rx)*0.12; ry+=(my-ry)*0.12;
+    ring.style.left=rx+'px'; ring.style.top=ry+'px';
+    requestAnimationFrame(ringLoop);
+  }();
+
+  document.querySelectorAll('button,input,.badge,.stat').forEach(function(el){
+    el.addEventListener('mouseenter',function(){ring.classList.add('hov');});
+    el.addEventListener('mouseleave',function(){ring.classList.remove('hov');});
+  });
+  document.body.style.cursor='none';
+}();
+
+
+/* ══ 3. 3-D CARD TILT ════════════════════════════
+   FIX: RAF-throttled mousemove handler — mouse can
+        fire at 200+ Hz but tilt only updates at 60fps.
+   FIX: will-change set on mouseenter, cleared on leave
+        (avoids permanent compositor layer cost).        */
+if(HAS_HOVER&&!REDUCED) !function(){
+  var scene=document.getElementById('scene');
+  var card =document.getElementById('card');
+  var tRAF=null;
+
+  scene.addEventListener('mouseenter',function(){
+    card.style.willChange='transform';
+  });
+  scene.addEventListener('mouseleave',function(){
+    card.style.transform='';
+    card.style.willChange='auto';
+    if(tRAF){cancelAnimationFrame(tRAF);tRAF=null;}
+  });
+  scene.addEventListener('mousemove',function(e){
+    if(tRAF) return;                 /* already scheduled — skip */
+    tRAF=requestAnimationFrame(function(){
+      tRAF=null;
+      var r=scene.getBoundingClientRect();
+      var x=Math.max(-1,Math.min(1,(e.clientX-r.left-r.width*.5)/(r.width*.5)));
+      var y=Math.max(-1,Math.min(1,(e.clientY-r.top -r.height*.5)/(r.height*.5)));
+      card.style.transform='rotateX('+(-y*5)+'deg) rotateY('+(x*5)+'deg)';
+    });
+  });
+}();
+
+
+/* ══ 4. TYPEWRITER ═══════════════════════════════ */
+!function(){
+  var words=[
+    'IoT Systems','Robotics Projects','Software Apps',
+    'Electronic Kits','PCB Prototypes','your Dream Project'
+  ];
+  var el=document.getElementById('typed');
+  var wi=0,ci=0,del=false;
+  function tick(){
+    var w=words[wi];
+    if(!del){ el.textContent=w.slice(0,++ci); if(ci>=w.length){del=true;setTimeout(tick,2200);return;} }
+    else     { el.textContent=w.slice(0,--ci); if(ci<=0){del=false;wi=(wi+1)%words.length;} }
+    setTimeout(tick,del?40:80);
+  }
+  setTimeout(tick,800);
+}();
+
+
+/* ══ 5. STAT COUNTERS ════════════════════════════ */
+!function(){
+  var S=[{id:'s1',end:50,suf:'+'},{id:'s2',end:20,suf:'+'},{id:'s3',end:500,suf:'+'}];
+  var fired=false;
+  function easeOut(t){return 1-Math.pow(1-t,3);}
+  function run(c){
+    var el=document.getElementById(c.id),t0=performance.now(),DUR=1250;
+    !function f(now){
+      var p=Math.min((now-t0)/DUR,1);
+      el.textContent=((easeOut(p)*c.end)|0)+(p>=1?c.suf:'');
+      if(p<1) requestAnimationFrame(f);
+    }(t0);
+  }
+  var obs=new IntersectionObserver(function(en){
+    if(fired||!en[0].isIntersecting) return;
+    fired=true;
+    setTimeout(function(){S.forEach(run);},650);
+  },{threshold:0.35});
+  var el=document.querySelector('.stats');
+  if(el) obs.observe(el);
+}();
+
+
+/* ══ 6. FORM + SOUND + CONFETTI ══════════════════ */
+!function(){
+  var form =document.getElementById('nform');
+  var input=document.getElementById('nemail');
+  var ok   =document.getElementById('nok');
+  var RE   =/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  /* C5→E5→G5 arpeggio */
+  function playWin(){
+    try{
+      var AC=window.AudioContext||window.webkitAudioContext;
+      if(!AC) return;
+      var ac=new AC();
+      [[523.25,0],[659.25,0.13],[783.99,0.26]].forEach(function(n){
+        var osc=ac.createOscillator(),g=ac.createGain();
+        osc.connect(g);g.connect(ac.destination);
+        osc.type='sine';osc.frequency.value=n[0];
+        var t=ac.currentTime+n[1];
+        g.gain.setValueAtTime(0,t);
+        g.gain.linearRampToValueAtTime(0.13,t+0.05);
+        g.gain.exponentialRampToValueAtTime(0.0001,t+0.65);
+        osc.start(t);osc.stop(t+0.65);
+      });
+    }catch(e){}
+  }
+
+  /* Confetti — DPR-aware so it's crisp on retina */
+  function boom(){
+    if(REDUCED) return;
+    var cv=document.getElementById('cv-conf'),ctx=cv.getContext('2d');
+    var dpr=Math.min(window.devicePixelRatio||1,2);
+    var VW=window.innerWidth,VH=window.innerHeight;
+    cv.width=VW*dpr; cv.height=VH*dpr;
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    cv.style.display='block';
+    var COLS=['#ff7900','#ffb347','#ffd700','#00c8b4','#3b82f6','#f43f5e','#a855f7'];
+    var ps=[];
+    for(var i=0;i<130;i++){
+      ps.push({x:Math.random()*VW,y:-20-Math.random()*90,
+        w:Math.random()*10+5,h:Math.random()*5+3,
+        c:COLS[(Math.random()*COLS.length)|0],
+        vx:(Math.random()-.5)*4.5,vy:Math.random()*3.5+1.5,
+        rot:Math.random()*360,vr:(Math.random()-.5)*9,a:1});
+    }
+    !function loop(){
+      ctx.clearRect(0,0,VW,VH);
+      var live=false;
+      for(var i=0,p;i<ps.length;i++){
+        p=ps[i]; if(p.y>VH+20||p.a<=0.01) continue;
+        live=true;
+        p.x+=p.vx;p.y+=p.vy;p.vy+=0.08;p.rot+=p.vr;
+        if(p.y>VH*.62) p.a=Math.max(0,p.a-.017);
+        ctx.save();ctx.globalAlpha=p.a;
+        ctx.translate(p.x,p.y);ctx.rotate(p.rot*Math.PI/180);
+        ctx.fillStyle=p.c;ctx.fillRect(-p.w*.5,-p.h*.5,p.w,p.h);
+        ctx.restore();
+      }
+      if(live) requestAnimationFrame(loop); else cv.style.display='none';
+    }();
+  }
+
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var v=input.value.trim();
+    if(!RE.test(v)){input.classList.add('err');input.focus();return;}
+    var btn=form.querySelector('button');
+    btn.disabled=true; btn.textContent='Sending…';
+
+    function showSuccess(){
+      var sp=document.querySelector('.social-proof');
+      if(sp) sp.style.display='none';
+      form.style.display='none';
+      ok.style.display='block';
+      playWin();
+      boom();
+    }
+
+    /* ── Google Forms submit (no-cors: fire-and-forget, data lands in your Sheet) ── */
+    /* Google Forms — fire-and-forget, data lands in your linked Google Sheet */
+    var body = new URLSearchParams();
+    body.append('entry.979586956', v);
+    fetch('https://docs.google.com/forms/d/e/1FAIpQLSedvz6NQUtf0RBmefrdKr--zQ99iJRznRtCP-Q-sHFFajSsiw/formResponse',{
+      method:'POST', mode:'no-cors', body:body
+    }).catch(function(){}); /* no-cors: always throws — that is expected, data still submits */
+    setTimeout(showSuccess, 350);
+  });
+  input.addEventListener('input',function(){input.classList.remove('err');});
+}();
+
+}());
+</script>
 </body>
 </html>
