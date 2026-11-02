@@ -81,7 +81,7 @@ body{
 }
 
 /* ══ 3-D TILT SCENE ══════════════════════════════ */
-.scene{perspective:1100px;width:100%;max-width:860px}
+.scene{perspective:1100px;width:100%;max-width:860px;margin:auto}
 
 /* ══ GLASS CARD ══════════════════════════════════
    FIX: backdrop-filter ONLY here, nowhere else.
@@ -187,6 +187,7 @@ h1{
    FIX: shadow/glow uses ::after opacity (GPU).     */
 .badges{
   display:flex;flex-wrap:wrap;gap:10px;justify-content:center;
+  width:100%;max-width:620px;
   margin-bottom:clamp(20px,3.5vw,28px);
 }
 .badge{
@@ -198,6 +199,8 @@ h1{
   border-radius:12px;padding:9px 16px;
   font-size:clamp(11.5px,1.45vw,13.5px);font-weight:700;color:var(--dark);
   cursor:default;
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
   /* FIX: only transform in transition (GPU-composited) */
   transition:transform .16s var(--ease);
   /* Stagger entrance — set per :nth-child below */
@@ -224,17 +227,6 @@ h1{
 .badge:nth-child(4){animation-delay:.43s}
 .badge:nth-child(5){animation-delay:.48s}
 .badge:nth-child(6){animation-delay:.53s}
-
-/* Mobile: horizontal swipe carousel */
-@media(max-width:520px){
-  .badges{
-    flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;
-    -webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory;
-    padding-bottom:8px;scrollbar-width:none;
-  }
-  .badges::-webkit-scrollbar{display:none}
-  .badge{flex-shrink:0;scroll-snap-align:start}
-}
 
 /* ══ STAT CARDS ══════════════════════════════════
    FIX: removed backdrop-filter (was 3 blur layers).
@@ -374,66 +366,87 @@ footer{
 
 /* ── Tablet (≤768px) ── */
 @media(max-width:768px){
+  .wrap{padding:clamp(16px,4vw,36px) clamp(12px,3.5vw,24px)}
   .copy{font-size:14px;line-height:1.7}
   .stats{max-width:100%}
 }
 
 /* ── Large mobile (≤600px) ── */
 @media(max-width:600px){
-  .card{padding:clamp(20px,5vw,32px) clamp(16px,5vw,28px)}
-  .logo{width:min(340px,90%)}
-  h1{font-size:clamp(28px,8vw,42px)}
-  .sub{font-size:clamp(15px,4vw,20px)}
+  .card{padding:clamp(20px,5vw,32px) clamp(14px,4vw,24px)}
+  .logo{width:min(320px,88%)}
+  h1{
+    font-size:clamp(25px,7.2vw,38px);
+    min-height:clamp(60px,13vw,82px); /* prevents typewriter layout jitter */
+  }
+  .sub{font-size:clamp(14.5px,3.8vw,19px);margin-bottom:14px}
   .copy{font-size:13.5px;max-width:100%}
-  /* Stack form vertically so button has full width */
-  .nform{flex-direction:column;border-radius:16px;overflow:visible;box-shadow:none;background:transparent;gap:10px}
+  .badges{gap:8px 6px;margin-bottom:16px}
+  .badge{padding:8px 12px;font-size:12px;border-radius:10px}
+  /* Stack form: input on top, full-width button below */
+  .nform{
+    flex-direction:column;
+    width:100%;
+    border-radius:14px;
+    overflow:hidden;         /* keep rounded corners unified */
+    gap:0;
+    margin-bottom:18px;
+  }
   .nform input{
-    border-radius:12px;
-    box-shadow:0 0 0 1.5px var(--o-a),0 4px 16px rgba(255,121,0,.1);
-    background:#fff;padding:15px 16px;font-size:15px
+    padding:14px 16px;
+    font-size:16px;          /* 16px prevents iOS Safari auto-zoom on focus */
+    border-bottom:1px solid rgba(255,121,0,.15);
   }
-  .nform input:focus{box-shadow:0 0 0 2px var(--o),0 4px 16px rgba(255,121,0,.15)}
   .nform button{
-    border-radius:12px;padding:15px 20px;font-size:15px;
-    box-shadow:0 6px 24px rgba(255,121,0,.35);width:100%
+    padding:14px 20px;
+    font-size:15px;
+    width:100%;
+    border-radius:0;
+    min-height:48px;         /* WCAG 2.5.5 touch target size */
   }
-  .stats{grid-template-columns:repeat(3,1fr);gap:8px}
-  .sn{font-size:clamp(20px,6vw,28px)}
-  .sl{font-size:9px}
-  .pill{font-size:10px;padding:8px 16px}
+  .stats{grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:16px}
+  .stat{padding:10px 4px;border-radius:12px}
+  .sn{font-size:clamp(19px,5.5vw,25px)}
+  .sl{font-size:8.5px;letter-spacing:.06em}
+  .pill{font-size:10px;padding:7px 14px;margin-bottom:14px}
+  .social-proof{margin-top:-10px;margin-bottom:16px;font-size:11.5px}
 }
 
 /* ── Small mobile (≤420px) ── */
 @media(max-width:420px){
-  h1{letter-spacing:-1px}
-  .stats{gap:6px}
-  .stat{padding:12px 6px;border-radius:14px}
-  .copy{display:none} /* hide body copy — too cluttered on small screens */
+  h1{letter-spacing:-.8px}
+  .copy{display:none}       /* hide long copy on small screens for ideal fit */
+  .stats{gap:5px}
 }
 
-/* ── Tiny (≤360px) ── */
+/* ── Tiny screens (≤360px) ── */
 @media(max-width:360px){
-  .card{padding:18px 12px}
-  h1{font-size:26px}
-  .sub{font-size:14px;margin-bottom:10px}
-  .logo{width:94%}
+  .wrap{padding:12px 8px}
+  .card{padding:16px 10px;border-radius:18px}
+  h1{font-size:23px;min-height:54px}
+  .sub{font-size:13px;margin-bottom:10px}
+  .logo{width:92%;margin-bottom:6px}
   .stats{grid-template-columns:repeat(3,1fr);gap:4px}
-  .sn{font-size:19px}
-  .badge{padding:8px 11px;font-size:11px}
+  .sn{font-size:18px}
+  .sl{font-size:8px}
+  .badge{padding:7px 9px;font-size:11px}
 }
 
 /* ── Landscape phone ── */
 @media(max-height:520px) and (orientation:landscape){
-  .wrap{padding:10px 20px}
-  .card{padding:12px 24px}
-  .logo{width:min(180px,30vw);margin-bottom:4px}
-  h1{font-size:clamp(18px,3.2vw,28px);margin-bottom:2px}
-  .sub{font-size:12px;margin-bottom:6px}
+  .wrap{padding:8px 16px}
+  .card{padding:12px 20px}
+  .logo{width:min(160px,28vw);margin-bottom:2px}
+  h1{font-size:clamp(17px,3vw,24px);min-height:auto;margin-bottom:2px}
+  .sub{font-size:11.5px;margin-bottom:4px}
   .copy,.stats{display:none}
-  .badges{margin-bottom:8px}
-  .pill{margin-bottom:8px;padding:6px 14px;font-size:10px}
-  .nform{margin-bottom:10px}
-  .social-proof{margin-bottom:4px}
+  .badges{margin-bottom:6px;gap:4px}
+  .badge{padding:5px 8px;font-size:10.5px}
+  .pill{margin-bottom:6px;padding:5px 12px;font-size:9.5px}
+  .nform{margin-bottom:8px;flex-direction:row;border-radius:12px;width:min(400px,100%)}
+  .nform input{padding:10px 12px;font-size:13px;border-bottom:none}
+  .nform button{padding:10px 16px;font-size:13px;width:auto;min-height:auto}
+  .social-proof{margin-bottom:2px;font-size:10px;margin-top:-6px}
 }
 
 /* ── 4K / large screens ── */
