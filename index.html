@@ -371,18 +371,77 @@ footer{
 }
 
 /* ══ RESPONSIVE ══════════════════════════════════ */
-@media(max-width:680px){.nform button{padding:14px 14px;font-size:13px}}
-@media(max-width:420px){h1{letter-spacing:-1px}.stats{gap:8px}}
-@media(max-width:360px){.card{padding:22px 14px}h1{font-size:28px}.sub{font-size:15px}}
-@media(max-height:520px) and (orientation:landscape){
-  .card{padding:14px 22px}
-  .logo{width:min(200px,36vw);margin-bottom:6px}
-  h1{font-size:clamp(20px,3.5vw,32px);margin-bottom:2px}
-  .sub{font-size:13px;margin-bottom:8px}
-  .copy,.stats{display:none}
-  .badges{margin-bottom:10px}.pill{margin-bottom:10px}.nform{margin-bottom:12px}
+
+/* ── Tablet (≤768px) ── */
+@media(max-width:768px){
+  .copy{font-size:14px;line-height:1.7}
+  .stats{max-width:100%}
 }
-@media(min-width:1600px){.logo{width:540px}.card{padding:76px 82px}}
+
+/* ── Large mobile (≤600px) ── */
+@media(max-width:600px){
+  .card{padding:clamp(20px,5vw,32px) clamp(16px,5vw,28px)}
+  .logo{width:min(340px,90%)}
+  h1{font-size:clamp(28px,8vw,42px)}
+  .sub{font-size:clamp(15px,4vw,20px)}
+  .copy{font-size:13.5px;max-width:100%}
+  /* Stack form vertically so button has full width */
+  .nform{flex-direction:column;border-radius:16px;overflow:visible;box-shadow:none;background:transparent;gap:10px}
+  .nform input{
+    border-radius:12px;
+    box-shadow:0 0 0 1.5px var(--o-a),0 4px 16px rgba(255,121,0,.1);
+    background:#fff;padding:15px 16px;font-size:15px
+  }
+  .nform input:focus{box-shadow:0 0 0 2px var(--o),0 4px 16px rgba(255,121,0,.15)}
+  .nform button{
+    border-radius:12px;padding:15px 20px;font-size:15px;
+    box-shadow:0 6px 24px rgba(255,121,0,.35);width:100%
+  }
+  .stats{grid-template-columns:repeat(3,1fr);gap:8px}
+  .sn{font-size:clamp(20px,6vw,28px)}
+  .sl{font-size:9px}
+  .pill{font-size:10px;padding:8px 16px}
+}
+
+/* ── Small mobile (≤420px) ── */
+@media(max-width:420px){
+  h1{letter-spacing:-1px}
+  .stats{gap:6px}
+  .stat{padding:12px 6px;border-radius:14px}
+  .copy{display:none} /* hide body copy — too cluttered on small screens */
+}
+
+/* ── Tiny (≤360px) ── */
+@media(max-width:360px){
+  .card{padding:18px 12px}
+  h1{font-size:26px}
+  .sub{font-size:14px;margin-bottom:10px}
+  .logo{width:94%}
+  .stats{grid-template-columns:repeat(3,1fr);gap:4px}
+  .sn{font-size:19px}
+  .badge{padding:8px 11px;font-size:11px}
+}
+
+/* ── Landscape phone ── */
+@media(max-height:520px) and (orientation:landscape){
+  .wrap{padding:10px 20px}
+  .card{padding:12px 24px}
+  .logo{width:min(180px,30vw);margin-bottom:4px}
+  h1{font-size:clamp(18px,3.2vw,28px);margin-bottom:2px}
+  .sub{font-size:12px;margin-bottom:6px}
+  .copy,.stats{display:none}
+  .badges{margin-bottom:8px}
+  .pill{margin-bottom:8px;padding:6px 14px;font-size:10px}
+  .nform{margin-bottom:10px}
+  .social-proof{margin-bottom:4px}
+}
+
+/* ── 4K / large screens ── */
+@media(min-width:1600px){
+  .logo{width:540px}
+  .card{padding:76px 82px}
+  .scene{max-width:980px}
+}
 
 /* ══ ACCESSIBILITY ═══════════════════════════════ */
 @media(prefers-reduced-motion:reduce){
