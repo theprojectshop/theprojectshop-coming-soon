@@ -1,0 +1,21 @@
+# The Project Shop
+
+> B.Tech Final Year Engineering Projects in IoT, Robotics & Software, Electronic Components & Hands-On DIY Kits.
+
+The Project Shop (https://www.theprojectshop.online/) provides end-to-end project development and support for B.Tech engineering students across India, alongside an electronics store for components, prototype boards, and DIY kits.
+
+## Core Offerings
+
+- [Final Year Projects](https://www.theprojectshop.online/): Customized and turnkey B.Tech capstone projects for engineering students in IoT, Robotics, Embedded Systems, and Software.
+- [IoT Systems](https://www.theprojectshop.online/): Sensor integration, microcontrollers (ESP32, STM32, Arduino, Raspberry Pi), MQTT protocols, and cloud IoT dashboards.
+- [Robotics](https://www.theprojectshop.online/): Autonomous rovers, robotic arms, obstacle-avoidance machines, drones, and motor driver circuits.
+- [Software Applications](https://www.theprojectshop.online/): Full-stack web applications, mobile applications, computer vision, AI/ML models, and embedded firmware.
+- [Electronic Components](https://www.theprojectshop.online/): Microcontrollers, sensors, actuators, motor drivers, communication modules, power electronics, and development boards.
+- [DIY Kits & PCB Prototypes](https://www.theprojectshop.online/): Curated electronics kits for hands-on learning, custom PCB design, rapid prototyping, and assembly.
+
+## Details
+
+- **Target Audience:** Engineering students (B.Tech / B.E.), hobbyists, makers, and innovators across India.
+- **Key Stats:** 100+ Projects Completed, 50+ DIY Kits Developed, 500+ Components Cataloged.
+- **Status:** Coming Soon — Early Access waitlist currently active.
+- **Website:** https://www.theprojectshop.online/
