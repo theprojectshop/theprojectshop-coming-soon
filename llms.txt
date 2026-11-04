@@ -2,7 +2,14 @@
 
 > B.Tech Final Year Engineering Projects in IoT, Robotics & Software, Electronic Components & Hands-On DIY Kits.
 
-The Project Shop (https://www.theprojectshop.online/) provides end-to-end project development and support for B.Tech engineering students across India, alongside an electronics store for components, prototype boards, and DIY kits.
+The Project Shop (https://www.theprojectshop.online/) provides end-to-end project development, prototyping, and support for B.Tech engineering students across India, alongside an electronics store for components, development boards, and DIY kits.
+
+## Contact & Direct Access
+- **Official Contact Email:** theprojectstoreonline@gmail.com
+- **Website:** https://www.theprojectshop.online/
+- **Full Knowledge Base for AI Agents:** https://www.theprojectshop.online/llms-full.txt
+- **Sitemap:** https://www.theprojectshop.online/sitemap.xml
+- **Human Credits:** https://www.theprojectshop.online/humans.txt
 
 ## Core Offerings
 

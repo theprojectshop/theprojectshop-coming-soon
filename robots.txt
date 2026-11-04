@@ -41,6 +41,10 @@ Allow: /
 User-agent: Bytespider
 Allow: /
 
+# Agent & LLM Documentation
+# https://www.theprojectshop.online/llms.txt
+# https://www.theprojectshop.online/llms-full.txt
+
 # Sitemaps
 Sitemap: https://www.theprojectshop.online/sitemap.xml
 Sitemap: https://theprojectshop.online/sitemap.xml

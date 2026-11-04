@@ -6,17 +6,70 @@
 <meta name="color-scheme" content="light">
 <meta name="description" content="The Project Shop — B.Tech Final Year Projects in IoT, Robotics &amp; Software. Electronic Components &amp; DIY Kits. Launching soon.">
 <meta name="theme-color" content="#faf9f7">
-<meta name="robots" content="index,follow">
-<meta name="keywords" content="btech final year project, iot project, robotics project, electronic components, diy kits, engineering project india">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+<meta name="keywords" content="btech final year project, iot project, robotics project, electronic components, diy kits, engineering project india, pcb prototyping, final year engineering">
+<meta name="author" content="The Project Shop">
+<meta property="og:site_name" content="The Project Shop">
 <meta property="og:type" content="website">
-<meta property="og:title" content="The Project Shop — Launching Soon">
-<meta property="og:description" content="B.Tech Final Year Projects · IoT · Robotics · Software · Electronic Kits — launching soon.">
-<meta property="og:image" content="https://theprojectshop.online/logo.png">
-<meta property="og:url" content="https://theprojectshop.online/">
+<meta property="og:title" content="The Project Shop — B.Tech Final Year Projects, Robotics, IoT &amp; Electronics">
+<meta property="og:description" content="Turnkey B.Tech Final Year Projects in IoT, Robotics &amp; Software. Electronic Components &amp; DIY Kits for engineering students in India.">
+<meta property="og:image" content="https://www.theprojectshop.online/logo.png">
+<meta property="og:image:alt" content="The Project Shop Logo">
+<meta property="og:url" content="https://www.theprojectshop.online/">
+<meta property="og:locale" content="en_IN">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Project Shop — B.Tech Final Year Projects &amp; Components">
+<meta name="twitter:description" content="Turnkey B.Tech Final Year Projects in IoT, Robotics &amp; Software. Electronic Components &amp; DIY Kits.">
+<meta name="twitter:image" content="https://www.theprojectshop.online/logo.png">
+<link rel="canonical" href="https://www.theprojectshop.online/">
 <title>The Project Shop | Coming Soon</title>
 <link rel="preload" as="image" href="logo.png" fetchpriority="high">
 <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+<link rel="author" href="/humans.txt">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.theprojectshop.online/#organization",
+      "name": "The Project Shop",
+      "url": "https://www.theprojectshop.online/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.theprojectshop.online/logo.png"
+      },
+      "email": "theprojectstoreonline@gmail.com",
+      "description": "B.Tech Final Year Projects in IoT, Robotics & Software. Electronic Components, Hands-on DIY Kits, and Hardware Prototyping for engineering students in India.",
+      "areaServed": {
+        "@type": "Country",
+        "name": "India"
+      },
+      "knowsAbout": [
+        "B.Tech Final Year Projects",
+        "Internet of Things (IoT)",
+        "Robotics Systems",
+        "Embedded Systems",
+        "Electronic Components",
+        "DIY Electronics Kits",
+        "PCB Prototyping",
+        "Engineering Software"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.theprojectshop.online/#website",
+      "url": "https://www.theprojectshop.online/",
+      "name": "The Project Shop",
+      "description": "B.Tech Final Year Projects, Electronics Components & DIY Kits",
+      "publisher": {
+        "@id": "https://www.theprojectshop.online/#organization"
+      }
+    }
+  ]
+}
+</script>
 
 <style>
 /* ══ TOKENS ═══════════════════════════════════════ */
@@ -347,10 +400,17 @@ h1{
 
 /* ══ FOOTER ══════════════════════════════════════ */
 footer{
+  display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px 0;
   color:#94a3b8;font-size:11px;font-weight:700;
-  letter-spacing:.28em;text-transform:uppercase;
+  letter-spacing:.24em;text-transform:uppercase;
   animation:up .5s .78s var(--ease) both;
 }
+.foot-link{
+  color:#94a3b8;text-decoration:none;letter-spacing:.12em;
+  transition:color .16s ease;
+  touch-action:manipulation;
+}
+.foot-link:hover{color:var(--o)}
 .rule{
   display:inline-block;width:22px;height:1px;
   background:linear-gradient(90deg,transparent,#bcc5d0,transparent);
@@ -561,7 +621,9 @@ footer{
 
   <footer>
     <span class="rule" aria-hidden="true"></span>
-    THEPROJECTSHOP.ONLINE
+    <a href="mailto:theprojectstoreonline@gmail.com" class="foot-link" aria-label="Email The Project Shop">theprojectstoreonline@gmail.com</a>
+    <span class="rule" aria-hidden="true"></span>
+    <span>THEPROJECTSHOP.ONLINE</span>
     <span class="rule" aria-hidden="true"></span>
   </footer>
 

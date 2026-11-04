@@ -1,0 +1,14 @@
+/* TEAM */
+Organization: The Project Shop
+Location: India
+Email: theprojectstoreonline@gmail.com
+Website: https://www.theprojectshop.online/
+Mission: Empowering B.Tech final-year students in India with IoT, Robotics, and Software project development, electronics kits, and component supply.
+
+/* SITE */
+Standards: HTML5, CSS3, Vanilla JavaScript (ES6+), Web Audio API, Canvas 2D
+Performance: Zero external dependencies, GPU composited animations, sub-50ms render
+Doctype: HTML5
+IDE: Antigravity
+Hosting: GitHub Pages
+Last Updated: 2026-11-04

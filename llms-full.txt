@@ -1,0 +1,62 @@
+# The Project Shop — Full Knowledge Base & Specifications for AI Agents & Scrapers
+
+> Complete operational guide, technical offerings, component catalogs, project domains, and contact routes for The Project Shop (https://www.theprojectshop.online/).
+
+## 1. Overview & Organization Details
+- **Organization Name:** The Project Shop
+- **Domain:** https://www.theprojectshop.online/ (and https://theprojectshop.online/)
+- **Primary Focus:** Capstone & Final Year B.Tech Engineering Projects, Hardware Prototyping, PCB Design, Robotics Assemblies, IoT Systems, Software Applications, and Electronics Component Retail.
+- **Geographic Coverage:** India (all engineering colleges and technical universities).
+- **Official Contact Email:** theprojectstoreonline@gmail.com
+- **Security Contact:** security@theprojectshop.online
+- **Status:** Launching Soon with Early Access Signups Active.
+
+## 2. Core Service Verticals
+
+### A. Final Year B.Tech Engineering Projects
+We design, assemble, program, test, and document complete capstone engineering projects across all major disciplines:
+- **Electronics & Communication Engineering (ECE)**
+- **Computer Science & Engineering (CSE / IT)**
+- **Electrical & Electronics Engineering (EEE)**
+- **Mechanical & Mechatronics Engineering**
+- **Robotics & Automation**
+
+Deliverables provided with projects:
+1. Fully assembled and tested working hardware prototype.
+2. Complete, commented source code and firmware.
+3. High-resolution circuit schematics and wiring diagrams.
+4. Comprehensive project report formatted per university guidelines.
+5. Presentation slides (PPT) and viva-voce preparation materials.
+
+### B. Internet of Things (IoT) Systems
+- **Hardware Platforms:** ESP32, ESP8266, STM32, Arduino Uno/Nano/Mega, Raspberry Pi (4/5/Zero 2W), RP2040.
+- **Connectivity & Protocols:** Wi-Fi (802.11 b/g/n), Bluetooth Low Energy (BLE 5.0), LoRa & LoRaWAN, Zigbee, GSM/GPRS, GPS/GNSS, MQTT, HTTP/REST, WebSockets.
+- **Sensor Suites:** Temperature & humidity (DHT22, BME280), gas & air quality (MQ series), ultrasonic distance, PIR motion, load cells (HX711), bio-sensors (ECG, pulse oximeter MAX30102).
+- **Cloud & Dashboard Integrations:** Adafruit IO, Blynk IoT, AWS IoT Core, Google Cloud Platform, Firebase Realtime Database, Node-RED, ThingsBoard.
+
+### C. Robotics & Autonomous Machines
+- **Locomotion:** 2WD/4WD differential drive rovers, Mecanum omnidirectional platforms, tracked robot chassis, bipedal & quadruped walkers.
+- **Actuation & Drivers:** L298N, TB6612FNG, Cytron SmartDrive, BTS7960 high-current H-bridges, NEMA 17/23 stepper motors, MG996R metal-gear servos.
+- **Intelligence & Vision:** OpenCV object tracking, line following with PID tuning, obstacle avoidance with LiDAR (RPLIDAR A1) and ultrasonic radar, ROS 2 integration.
+- **Robotic Arms:** 3-DOF to 6-DOF robotic manipulators with inverse kinematics, gripper mechanisms, and wireless/gesture-controlled pendants.
+
+### D. Software Applications & AI
+- **Full-Stack Web & Dashboards:** React, Vue, Next.js, Node.js/Express, Python (Flask/FastAPI), TailwindCSS.
+- **Mobile Applications:** Flutter cross-platform apps for project remote monitoring and control.
+- **Artificial Intelligence & Computer Vision:** TensorFlow, PyTorch, YOLOv8 object detection on edge devices (Raspberry Pi, NVIDIA Jetson Nano).
+
+### E. Electronic Components & DIY Kits Store
+- **Sensors:** Analog, digital, I2C, SPI sensors across environmental, biomedical, acoustic, and kinetic categories.
+- **Development Boards:** Genuine development platforms, breakout boards, programmers (ST-Link, CP2102, CH340).
+- **DIY Kits:** Beginner to advanced educational electronics kits with step-by-step assembly tutorials.
+- **Rapid Prototyping:** Custom PCB design (KiCad/EasyEDA), prototype soldering, perfboards, wiring harnesses, 3D printed enclosures.
+
+## 3. Metrics & Proven Track Record
+- **Projects Built:** 100+
+- **DIY Kits Developed:** 50+
+- **Components Cataloged:** 500+
+
+## 4. How to Reach or Collaborate
+- **For Students seeking Project Consultation:** Join the Early Access waitlist at https://www.theprojectshop.online/ or email `theprojectstoreonline@gmail.com`.
+- **For Bulk Component & Lab Inquiries:** Contact `theprojectstoreonline@gmail.com`.
+- **Technical Vulnerability Reporting:** Contact `security@theprojectshop.online` per RFC 9116 guidelines at `/.well-known/security.txt`.
